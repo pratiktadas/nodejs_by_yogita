@@ -1,0 +1,110 @@
+var User = require('../models/userModel');
+
+// exports.userList = function(req,res){
+//     //res.send('msg');
+//     new User().where({
+//         uname: 'Teju'
+//     }).fetch()
+//     .then(function(user){
+//         res.send(user.toJSON());
+//     }).catch(function(error){
+//         console.log(error);
+//         res.send('Error occured');
+//     });
+// }
+
+exports.userList = function(req,res){
+    //res.send('msg');
+    new User().fetchAll()
+    .then(function(user){
+        res.send(user.toJSON());
+    }).catch(function(error){
+        console.log(error);
+        res.send('Error occured');
+    });
+}
+
+// exports.userAdd = function(req,res){
+//     var obj = new User();
+//     obj.set('uname','Devi');
+//     obj.set('password','Devesh');
+
+//     obj.save().then(function(u){
+//         console.log('User saved');
+//     }).catch(function(error){
+//         res.send('Something went wrong');
+//     });
+// }
+
+exports.userAdd = function(req,res){
+    
+    console.log(req.body.uname);
+    var obj = new User();
+    
+    obj.set({
+        uname: req.body.uname,
+        password: req.body.password
+    })
+    .save()
+    .then(function(u){
+        console.log('User saved');
+        res.send(u);
+    }).catch(function(error){
+        res.send(error);
+    });
+
+// exports.userUpdate = function(req,res,next){
+//     var obj = new User();
+//     obj.where({ id: req.body.id})
+//     .fetch({require: true})
+//     .then(function (u){
+//         u.save({
+//             uname: req.body.uname,
+//             password: req.body.password
+//         })
+//         .then(function(){
+//             res.send('updated');
+//         })
+//         .catch(function(err){
+//             res.send(err);
+//         });
+//     })
+//     .catch(function(err){
+//         res.send(err);
+//     });
+// }
+
+// exports.userUpdate = function(req,res){
+//     var obj1 = new User();
+//     var user_id=obj1.find(req.body.id);
+//     console.log(user_id);
+//     obj1.query({
+//         where:{
+//             id: req.body.id
+//         }
+//     })
+//     .fetch()
+//     .then(function(model){
+//         model.set({
+//             uname: req.body.uname,
+//             password: req.body.password
+//         })
+//         .save();
+//     })
+//     .catch(function(err){
+//         console.log(err);
+//     });
+//     // obj.set({
+//     //     uname: req.body.uname,
+//     //     password: req.body.password
+//     // })
+//     // .where({id: user_id})
+//     // .save()
+//     // .then(function(){
+//     //     res.send('updated');
+//     // })
+//     // .catch(function(err){
+//     //     console.log(err);
+//     // })
+// }
+}
